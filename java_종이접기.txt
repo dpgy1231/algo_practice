@@ -1,0 +1,29 @@
+//종이를 오른쪽에서 왼쪽으로 접을 때 접힌 부분을 0또는 1을 원소로 갖는 배열로 나타내어 해당 배열 출력, 접은 횟수를 n으로 입력받음
+//들어가게 접힌 부분:0 위로 나오게 접힌부분:1
+
+class Solution {
+  public int[] solution(int n) {
+       int[] answer = {};
+      int num=0,num_tmp=0,num_tmp_before=0;
+      
+      for(int i=1; i<=n; i++){ 	//적절한 공간할당
+          num = (2*num)+1;
+      }
+      answer = new int[num];
+      answer[0] = 0; 
+      
+      if(n>1){       
+          for(int i=1; i<=n; i++){
+              num_tmp_before=num_tmp; //i-1번째의 공간 수(배열크기)
+              num_tmp = (2*num_tmp)+1; //i번째의 공간 수(배열크기)
+              answer[num_tmp_before]=0; //0추가
+              for(int j=1; num_tmp_before-j>=0; j++){ //가운데의 0을 기준으로 왼쪽과 대칭이며 왼쪽값의 반대값(1->0, 0->1)
+                  if(answer[num_tmp_before-j] == 0)  answer[num_tmp_before+j] = 1;
+                  else answer[num_tmp_before+j] = 0;
+                  //answer[num_tmp_before+j]=answer[num_tmp_before-j];
+              }
+          }
+      }
+      return answer;
+  }
+}
